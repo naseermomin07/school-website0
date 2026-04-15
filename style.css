@@ -1,0 +1,23 @@
+input, select {
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #ff416c;
+    box-shadow: 0 0 10px #ff416c;
+    transform: scale(1.03);
+}
+
+button {
+    padding: 12px;
+    background: #ff416c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 15px #ff416c;
+    transform: scale(1.05);
+}

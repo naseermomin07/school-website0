@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart School Form</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Excel Library -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: 0.3s;
+        }
+
+        /* Input Animation */
+        input:focus, select:focus {
+            border-color: #ff416c;
+            box-shadow: 0 0 10px #ff416c;
+            transform: scale(1.03);
+            outline: none;
+        }
+
+        /* Buttons */
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            background-size: 200%;
+            transition: 0.5s;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-position: right;
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏫 School Data Entry</h1>
+
+<div class="container">
+
+    <form id="form">
+        <label>Name</label>
+        <input type="text" id="name" required>
+
+        <label>Age</label>
+        <input type="number" id="age" required>
+
+        <label>Class</label>
+        <select id="class">
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option>
+        </select>
+
+        <label>Gender</label>
+        <select id="gender">
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+
+        <label>Phone</label>
+        <input type="tel" id="phone">
+
+        <label>Email</label>
+        <input type="email" id="email">
+
+        <button type="submit">Add Data</button>
+        <button type="button" onclick="downloadExcel()">Download Excel</button>
+    </form>
+
+</div>
+
+<script>
+let data = [];
+
+document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let student = {
+        Name: document.getElementById("name").value,
+        Age: document.getElementById("age").value,
+        Class: document.getElementById("class").value,
+        Gender: document.getElementById("gender").value,
+        Phone: document.getElementById("phone").value,
+        Email: document.getElementById("email").value
+    };
+
+    data.push(student);
+
+    alert("Data Added ✅");
+    this.reset();
+});
+
+function downloadExcel() {
+    let ws = XLSX.utils.json_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Students");
+
+    XLSX.writeFile(wb, "Student_Data.xlsx");
+}
+</script>
+
+</body>
+</html>
